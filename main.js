@@ -11,5 +11,15 @@ const db = new sqlite3.Database('./musichistory.db',(err)=>{console.log("connect
 db.all(`SELECT Song.Title,Album.Title,Artist.ArtistName FROM Album
   LEFT JOIN Song ON Song.AlbumId = Album.AlbumId
   LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId`,(err,allRows)=>{
-  console.log({allRows})
+  console.log(allRows.length)
 });
+
+db.all(`SELECT COUNT(*) FROM Song JOIN Album ON Album.ArtistId = Song.AlbumId`,(err,allRows)=>{
+  console.log("songs exist for each album: ", allRows)
+})
+db.all(`SELECT COUNT(*) FROM Song JOIN Artist ON Artist.ArtistId = Song.ArtistId`,(err,allRows)=>{
+  console.log("songs exist for each artist: ",allRows)
+})
+db.all(`SELECT COUNT(*) FROM Song JOIN Genre ON Genre.GenreId = Song.GenreId`,(err,allRows)=>{
+  console.log("songs exist for each genre: ",allRows)
+})
