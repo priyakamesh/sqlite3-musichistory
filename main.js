@@ -11,8 +11,9 @@ const db = new sqlite3.Database('./musichistory.db',(err)=>{console.log("connect
 //STEP 5
 db.all(`SELECT Song.Title,Album.Title,Artist.ArtistName FROM Album
   LEFT JOIN Song ON Song.AlbumId = Album.AlbumId
-  LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId`,(err,allRows)=>{
-  console.log(allRows.length)
+  LEFT JOIN Artist ON Artist.ArtistId = Album.ArtistId
+  WHERE Artist.ArtistName = "D.Imman"`,(err,allRows)=>{
+  console.log(allRows)
 });
 
 //Write a SELECT statement to display how many songs exist for each album. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
