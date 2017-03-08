@@ -17,18 +17,18 @@ db.all(`SELECT Song.Title,Album.Title,Artist.ArtistName FROM Album
 });
 
 //Write a SELECT statement to display how many songs exist for each album. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
-db.each(`SELECT COUNT(*) FROM Song JOIN Album ON Album.ArtistId = Song.AlbumId`,(err,row)=>{
-  console.log("songs exist for each album: ", row)
+db.each(`SELECT Album.Title,COUNT(*) FROM Album JOIN Song ON Album.AlbumId = Song.AlbumId GROUP BY Album.AlbumId`,(err,row)=>{
+  console.log(row)
 })
 
 //Write a SELECT statement to display how many songs exist for each artist. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
-db.all(`SELECT COUNT(*) FROM Song JOIN Artist ON Artist.ArtistId = Song.ArtistId`,(err,allRows)=>{
-  console.log("songs exist for each artist: ",allRows)
+db.each(`SELECT Song.Title,COUNT(*) FROM Song JOIN Artist ON Artist.ArtistId = Song.ArtistId GROUP BY Artist.ArtistId`,(err,allRows)=>{
+  console.log(allRows)
 })
 
 //Write a SELECT statement to display how many songs exist for each genre. You'll need to use the COUNT() function and the GROUP BY keyword sequence.
-db.all(`SELECT COUNT(*) FROM Song JOIN Genre ON Genre.GenreId = Song.GenreId`,(err,allRows)=>{
-  console.log("songs exist for each genre: ",allRows)
+db.all(`SELECT Genre.Label,COUNT(*) FROM Song JOIN Genre ON Genre.GenreId = Song.GenreId GROUP BY Genre.GenreId`,(err,allRows)=>{
+  console.log(allRows)
 })
 
 //Using MAX() function, write a select statement to find the album with the longest duration. The result should display the album title and the duration.
